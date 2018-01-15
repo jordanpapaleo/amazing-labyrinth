@@ -34,7 +34,6 @@ export default class Board extends PureComponent {
   }
 
   handleNavigation = (pos, i) => {
-    console.log(pos, i)
     this.setState((currentState) => {
       const pieces = [...currentState.pieces[i]]
       let nextPiece
