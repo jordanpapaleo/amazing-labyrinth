@@ -4,14 +4,17 @@ import PropTypes from 'prop-types'
 export default class BoardPosition extends PureComponent {
   static propTypes = {
     position: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
+    children: PropTypes.any
   }
 
   render () {
     const {style, position} = this.props
 
     return (
-      <div className='boardPosition-component' style={{...style, ...styles.position}}>{position}</div>
+      <div className='boardPosition-component' style={{...style, ...styles.position}} title={position}>
+        {this.props.children}
+      </div>
     )
   }
 }

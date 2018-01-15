@@ -3,19 +3,30 @@ export default class PieceModel {
     let positions = null
     let reducedVal = 0
 
-    do {
-      positions = setLayout(props)
-      reducedVal = positions.reduce((accumulator, currentValue) => accumulator + currentValue)
-    } while (reducedVal !== 2 && reducedVal !== 3)
+    if (props.bottom === undefined && props.top === undefined && props.left === undefined && props.right === undefined) {
+      do {
+        positions = setLayout(props)
+        reducedVal = positions.reduce((accumulator, currentValue) => accumulator + currentValue)
+      } while (reducedVal !== 2 && reducedVal !== 3)
 
-    const [bottom, left, right, top] = positions
+      const [bottom, left, right, top] = positions
 
-    this.bottom = bottom
-    this.left = left
-    this.right = right
-    this.top = top
+      this.bottom = bottom
+      this.left = left
+      this.right = right
+      this.top = top
+    } else {
+      const {bottom, left, right, top} = props
+      this.bottom = bottom
+      this.left = left
+      this.right = right
+      this.top = top
+    }
+
     this.rotation = props.rotation || Math.floor(Math.random() * 4) * 90
-    this.order = props.order || null
+    this.order = props.order !== undefined
+      ? props.order
+      : null
     this.treasureId = props.treasureId || null
   }
 }

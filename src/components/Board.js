@@ -2,16 +2,36 @@ import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import BoardPosition from 'components/BoardPosition'
 import BoardNavigation from 'components/BoardNavigation'
+import Piece from 'components/Piece'
+import clonedeep from 'lodash.clonedeep'
 
 export default class Board extends PureComponent {
   static propTypes = {
-    size: PropTypes.number
+    size: PropTypes.number,
+    pieces: PropTypes.array
   }
 
-  state = {
-    boardMatrix: [...Array(this.props.size)].map(() => [...Array(this.props.size)]),
-    pieces: [...Array(this.props.size * this.props.size).map((piece, i) => ({label: i}))],
-    nextPiece: {label: 'next'}
+  constructor (props) {
+    super(props)
+
+    const {size, pieces} = this.props
+    const tempPieces = clonedeep(pieces)
+    const statePieces = []
+
+    const arrayCount = Math.round(tempPieces.length / size)
+    let i = 0
+
+    do {
+      statePieces.push(tempPieces.splice(0, size))
+      i++
+    } while (i < arrayCount)
+
+    console.log('statePieces', statePieces)
+    this.state = {
+      boardMatrix: [...Array(size)].map(() => [...Array(size)]),
+      pieces: statePieces,
+      nextPiece: tempPieces.pop()
+    }
   }
 
   handleNavigation = (pos, i) => {
@@ -20,19 +40,21 @@ export default class Board extends PureComponent {
 
   render () {
     const {size} = this.props
-    const {boardMatrix} = this.state
+    const {boardMatrix, pieces} = this.state
 
     return (
       <div className='board-component' style={styles.board}>
         <BoardNavigation size={size} cb={this.handleNavigation} />
 
-        {boardMatrix.map((pieces, i) => (
+        {boardMatrix.map((zones, i) => (
           <div key={i} style={{display: 'flex'}}>
-            {pieces.map((piece, j) => <BoardPosition style={styles.pieceLayout} key={j} position={`${i}-${j}`} />)}
+            {zones.map((zone, j) => (
+              <BoardPosition style={styles.pieceLayout} key={j} position={`${i}-${j}`}>
+                <Piece piece={pieces[i][j]} />
+              </BoardPosition>
+            ))}
           </div>
         ))}
-
-        {/* <Piece label='other' style={{width: 100, position: 'absolute', bottom: -100, left: 100}} /> */}
       </div>
     )
   }

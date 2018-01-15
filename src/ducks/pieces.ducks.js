@@ -27,7 +27,6 @@ export function initPieces () {
 
     const pieces = []
 
-    // YOU are here
     tempPieces
       .sort(sortByObjKey('order'))
       .forEach((piece, i) => {
@@ -48,6 +47,9 @@ export function initPieces () {
           }
         }
       })
+
+    // This is the extra piece
+    pieces.push({})
 
     // Want to keep these as reference vars
     const untreasured = shuffle(pieces.filter(piece => !piece.treasureId))
@@ -79,6 +81,7 @@ const initialState = []
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_PIECES:
+      console.log('action.payload', action.payload.length)
       return action.payload
         .map(piece => new PieceModel(piece))
     default:

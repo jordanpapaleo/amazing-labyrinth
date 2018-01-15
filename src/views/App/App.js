@@ -10,7 +10,8 @@ import {initPieces} from 'ducks/pieces.ducks'
 import {initDeck} from 'ducks/deck.ducks'
 
 const mapStateToProps = state => ({
-  treasures: state.treasures
+  treasures: state.treasures,
+  pieces: state.pieces
 })
 const mapDispatchToProps = dispatch => (bindActionCreators({
   initTreasure,
@@ -21,6 +22,7 @@ const mapDispatchToProps = dispatch => (bindActionCreators({
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends Component {
   static propTypes = {
+    pieces: PropTypes.array,
     treasures: PropTypes.array,
     initTreasure: PropTypes.func,
     initDeck: PropTypes.func,
@@ -39,9 +41,11 @@ export default class App extends Component {
   }
 
   render () {
+    const {pieces} = this.props
+
     return (
       <div className='app-component'>
-        <Board size={7} />
+        {!!pieces.length && <Board size={7} pieces={pieces} />}
       </div>
     )
   }
