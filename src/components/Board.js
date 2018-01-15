@@ -35,16 +35,58 @@ export default class Board extends PureComponent {
 
   handleNavigation = (pos, i) => {
     console.log(pos, i)
+    this.setState((currentState) => {
+      const pieces = [...currentState.pieces[i]]
+      let nextPiece
+
+      if (pos === 'top') {
+        //
+      } else if (pos === 'bottom') {
+        //
+      } else if (pos === 'left') {
+        pieces.unshift(currentState.nextPiece)
+        nextPiece = pieces.pop()
+      } else if (pos === 'right') {
+        pieces.push(currentState.nextPiece)
+        nextPiece = pieces.shift()
+      }
+
+      const nextState = {
+        pieces: [
+          ...currentState.pieces.slice(0, i),
+          pieces,
+          ...currentState.pieces.slice(i + 1)
+        ],
+        nextPiece
+      }
+
+      return nextState
+    })
+  }
+
+  handleRotateNext = () => {
+    this.setState((currentState) => {
+      let rotation = currentState.nextPiece.rotation + 90
+
+      if (rotation === 360) {
+        rotation = 0
+      }
+
+      return {
+        nextPiece: {
+          ...currentState.nextPiece,
+          rotation
+        }
+      }
+    })
   }
 
   render () {
     const {size} = this.props
-    const {boardMatrix, pieces} = this.state
+    const {boardMatrix, pieces, nextPiece} = this.state
 
     return (
       <div className='board-component' style={styles.board}>
-        <BoardNavigation size={size} cb={this.handleNavigation} />
-
         {boardMatrix.map((zones, i) => (
           <div key={i} style={{display: 'flex'}}>
             {zones.map((zone, j) => (
@@ -54,6 +96,12 @@ export default class Board extends PureComponent {
             ))}
           </div>
         ))}
+
+        <BoardNavigation size={size} cb={this.handleNavigation} />
+
+        <div style={{position: 'absolute', width: 100, height: 100, bottom: -150}} onClick={this.handleRotateNext}>
+          <Piece piece={nextPiece} />
+        </div>
       </div>
     )
   }

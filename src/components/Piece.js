@@ -11,7 +11,7 @@ export default class Piece extends PureComponent {
 
   render () {
     const {piece} = this.props
-    console.log('piece', piece)
+
     return (
       <div style={{...styles.piece, transform: `rotate(${piece.rotation}deg)`}} className='piece-component'>
         {[...Array(9)].map((e, i) => {
