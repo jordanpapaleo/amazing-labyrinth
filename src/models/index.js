@@ -1,9 +1,9 @@
 import CardModel from 'models/CardModel'
-import DeckModel from 'models/DeckModel'
 import PieceModel from 'models/PieceModel'
+import TreasureModel from 'models/TreasureModel'
 
 export {
   CardModel,
-  DeckModel,
-  PieceModel
+  PieceModel,
+  TreasureModel
 }
