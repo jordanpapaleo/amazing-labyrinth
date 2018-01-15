@@ -22,7 +22,7 @@ export const corners = [
     bottom: 1,
     left: 1,
     right: 0,
-    rotation: 0,
+    rotation: 180,
     order: 42,
     treasureId: 'yellow-start'
   },
@@ -31,7 +31,7 @@ export const corners = [
     bottom: 1,
     left: 1,
     right: 0,
-    rotation: 0,
+    rotation: 180,
     order: 48,
     treasureId: 'blue-start'
   }

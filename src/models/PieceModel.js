@@ -23,7 +23,9 @@ export default class PieceModel {
       this.top = top
     }
 
-    this.rotation = props.rotation || Math.floor(Math.random() * 4) * 90
+    this.rotation = props.rotation !== undefined
+      ? props.rotation
+      : Math.floor(Math.random() * 4) * 90
     this.order = props.order !== undefined
       ? props.order
       : null

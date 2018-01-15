@@ -24,6 +24,7 @@ const styles = {
     border: '1px solid gray',
     backgroundColor: 'white',
     height: 100,
+    width: 100,
     flex: 1,
     display: 'flex',
     flexDirection: 'column',

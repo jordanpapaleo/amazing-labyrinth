@@ -81,7 +81,6 @@ const initialState = []
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_PIECES:
-      console.log('action.payload', action.payload.length)
       return action.payload
         .map(piece => new PieceModel(piece))
     default:

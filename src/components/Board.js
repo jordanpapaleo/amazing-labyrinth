@@ -26,7 +26,6 @@ export default class Board extends PureComponent {
       i++
     } while (i < arrayCount)
 
-    console.log('statePieces', statePieces)
     this.state = {
       boardMatrix: [...Array(size)].map(() => [...Array(size)]),
       pieces: statePieces,
@@ -62,6 +61,8 @@ export default class Board extends PureComponent {
 
 const styles = {
   board: {
+    width: 900,
+    height: 900,
     padding: 100,
     backgroundColor: 'lightgray',
     position: 'relative'
